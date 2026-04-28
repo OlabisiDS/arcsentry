@@ -25,7 +25,7 @@ const ARC_PARAMS = {
   blockExplorerUrls: ['https://testnet.arcscan.app'],
 };
 
-const VS = {
+const VS: Record<number, string> = {
   0:'Draft', 1:'Accepted', 2:'Funded',
   3:'Release Requested', 4:'Disputed',
   5:'Completed', 6:'Refunded', 7:'Cancelled',
