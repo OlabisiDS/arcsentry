@@ -23,7 +23,7 @@ const ARC_PARAMS = {
   'https://rpc.quicknode.testnet.arc.network',
 ],
 
-const VS: Record<number, string> = {
+const VS = {
   0:'Draft', 1:'Accepted', 2:'Funded',
   3:'Release Requested', 4:'Disputed',
   5:'Completed', 6:'Refunded', 7:'Cancelled',
