@@ -17,12 +17,11 @@ const ARC_PARAMS = {
   chainName: 'Arc Testnet',
   nativeCurrency: { name: 'USDC', symbol: 'USDC', decimals: 18 },
   rpcUrls: [
-    'https://rpc.testnet.arc.network',
-    'https://rpc.blockdaemon.testnet.arc.network',
-    'https://rpc.quicknode.testnet.arc.network',
-  ],
-  blockExplorerUrls: ['https://testnet.arcscan.app'],
-};
+  'https://rpc.drpc.testnet.arc.network',
+  'https://rpc.testnet.arc.network',
+  'https://rpc.blockdaemon.testnet.arc.network',
+  'https://rpc.quicknode.testnet.arc.network',
+],
 
 const VS: Record<number, string> = {
   0:'Draft', 1:'Accepted', 2:'Funded',
