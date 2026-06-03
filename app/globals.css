@@ -1,26 +1,150 @@
 @import "tailwindcss";
 
+/* ── ArcSentry Design Tokens ─────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Surfaces */
+  --bg-page:      #08080B;
+  --bg-card:      #0F0F14;
+  --bg-elevated:  #16161E;
+  --bg-input:     rgba(255,255,255,0.04);
+
+  /* Borders */
+  --border-subtle:  rgba(255,255,255,0.06);
+  --border-default: rgba(255,255,255,0.09);
+  --border-focus:   rgba(0,201,122,0.35);
+
+  /* Brand */
+  --green:        #00C97A;
+  --green-dim:    rgba(0,201,122,0.12);
+  --green-glow:   rgba(0,201,122,0.06);
+
+  /* Semantic */
+  --blue:         #60A5FA;
+  --blue-dim:     rgba(96,165,250,0.12);
+  --amber:        #F59E0B;
+  --amber-dim:    rgba(245,158,11,0.12);
+  --red:          #EF4444;
+  --red-dim:      rgba(239,68,68,0.12);
+  --purple:       #A78BFA;
+  --purple-dim:   rgba(167,139,250,0.12);
+  --grey:         #6B7280;
+  --grey-dim:     rgba(107,114,128,0.10);
+
+  /* Text */
+  --tx-primary:   #E0E0E0;
+  --tx-secondary: #888888;
+  --tx-muted:     #444444;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Light mode overrides */
+.light {
+  --bg-page:      #F4F5F7;
+  --bg-card:      #FFFFFF;
+  --bg-elevated:  #F0F1F3;
+  --bg-input:     rgba(0,0,0,0.04);
+  --border-subtle:  rgba(0,0,0,0.07);
+  --border-default: rgba(0,0,0,0.11);
+  --tx-primary:   #111111;
+  --tx-secondary: #555555;
+  --tx-muted:     #AAAAAA;
+  --green-dim:    rgba(0,201,122,0.09);
+  --green-glow:   rgba(0,201,122,0.04);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ── Reset ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-page);
+  color: var(--tx-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,201,122,0.2); border-radius: 4px; }
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.85); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.animate-fade-up  { animation: fade-up  0.35s ease both; }
+.animate-slide-in { animation: slide-in 0.3s  ease both; }
+
+/* ── Utility classes ─────────────────────────────────────────────────────── */
+.mono { font-family: var(--font-mono); }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  backdrop-filter: blur(18px);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.card:hover { border-color: var(--border-default); }
+.card-elevated {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+}
+
+/* Buttons base */
+button { cursor: pointer; font-family: var(--font-sans); transition: all 0.16s ease; }
+button:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+button:active:not(:disabled) { transform: translateY(0); }
+button:disabled { cursor: not-allowed; opacity: 0.45; }
+
+/* Section label */
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+}
+
+/* Grid background pattern */
+.grid-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.028;
+  background-image:
+    linear-gradient(var(--green) 1px, transparent 1px),
+    linear-gradient(90deg, var(--green) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+/* Glow orb */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--green-glow) 0%, transparent 65%);
+  pointer-events: none;
 }
