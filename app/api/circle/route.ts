@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
       });
 
       // Circle returns tx directly at res.data, not nested under res.data.transaction
-      const txId = res.data?.transaction?.id || res.data?.id;
+      const txId = res.data?.id;
       if (!txId) throw new Error('Transaction submission failed');
 
       // Return immediately — don't wait for confirmation

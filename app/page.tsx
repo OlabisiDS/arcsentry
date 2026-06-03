@@ -95,7 +95,9 @@ const fmtUsdc = (r:bigint) => (Number(r)/1e6).toLocaleString('en-US',{minimumFra
 const exAddr  = (a:string) => `https://testnet.arcscan.app/address/${a}`;
 const exTx    = (h:string) => `https://testnet.arcscan.app/tx/${h}`;
 
-const getGasParams = async (provider: ethers.BrowserProvider) => {
+const getGasParams = async (
+  provider: ethers.BrowserProvider | ethers.JsonRpcProvider
+) => {
   return {}; // Let Privy handle gas and nonce automatically
 };
 
